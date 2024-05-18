@@ -15,5 +15,7 @@ for s in j['data']:
         col: s[col] if col in s else None for col in cols
     })
 
+output.sort(key=lambda s: s['releaseDate'])
+
 with open('src/sets.json', 'w') as f:
     json.dump(output, f)
