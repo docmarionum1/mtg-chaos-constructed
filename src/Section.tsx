@@ -23,7 +23,7 @@ export function Section({
 }: Props) {
   return (
     <>
-      <div className="min-w-fit max-h-[50vh] overflow-y-auto px-16 my-8">
+      <div className="max-h-[50vh] overflow-y-auto md:px-16 px-2 my-8 grow">
         <div className="flex justify-evenly mb-4">
           <Input
             fullWidth={false}

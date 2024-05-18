@@ -97,6 +97,7 @@ function App() {
         </span>
       </div>
       <Button
+        className="h-auto"
         onClick={async () => {
           const choices: string[] = [];
           let poss = 1;
@@ -136,8 +137,10 @@ function App() {
           }
         }}
       >
-        Generate! (out of {possibilities.toLocaleString()} possible
-        combinations)
+        <div className="flex flex-wrap gap-px justify-center [&>*]:px-0.5">
+          <div>Generate!</div>
+          <div>({possibilities.toLocaleString()} possible combinations)</div>
+        </div>
       </Button>
       <div>
         {selectedSets.map((code) => (
@@ -148,7 +151,7 @@ function App() {
       </div>
       <Accordion>
         <AccordionItem title="⚙️ Settings">
-          <div className="flex justify-evenly">
+          <div className="flex md:justify-evenly flex-col md:flex-row justify-start px-1 gap-2">
             <Checkbox
               isSelected={includeForeignOnly}
               onValueChange={setIncludeForeignOnly}
@@ -197,6 +200,19 @@ function App() {
           />
         ))}
       </div>
+      <footer>
+        <small>
+          &copy; Copyright {new Date().getFullYear()},{" "}
+          <a href="http://jeremyneiman.com" target="_blank">
+            Jeremy Neiman
+          </a>
+          . Data via{" "}
+          <a href="https://mtgjson.com/" target="_blank">
+            MTGJSON
+          </a>
+          .
+        </small>
+      </footer>
     </div>
   );
 }
