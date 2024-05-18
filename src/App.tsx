@@ -213,7 +213,12 @@ function App() {
           <a href="https://mtgjson.com/" target="_blank">
             MTGJSON
           </a>
-          .
+          . The{" "}
+          <a href="https://scryfall.com/card/2ed/236/chaos-orb" target="_blank">
+            Chaos Orb
+          </a>{" "}
+          icon, illustrated by Mark Tedin, is copyright of Wizards of the Coast
+          LLC.
         </small>
       </footer>
     </div>
