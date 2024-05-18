@@ -75,6 +75,9 @@ function App() {
   // Calculate the number of possible combinations given the settings
   let possibilities = 1;
   for (const section of sections) {
+    if (!(section.num_setNum[0] > 0)) {
+      continue;
+    }
     // Get the valid options based on filters and deselection
     const options = subSets
       .filter(section.filter)

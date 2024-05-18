@@ -34,6 +34,7 @@ export function Section({
               console.log(e);
               setNum(parseInt(e));
             }}
+            isInvalid={num < 0}
           />
           <div className="flex items-center">
             {title} Sets ({sets.length})
