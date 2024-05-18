@@ -38,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Fetch sets.json
-        run: ./scripts/sets_json.sh
+        run: bash ./scripts/sets_json.sh
       - name: Build
         run: npm run build
       - name: Setup Pages
