@@ -32,7 +32,6 @@ def deploy_function():
         --source={script_dir} \
         --entry-point=trigger_workflow \
         --trigger-http \
-        --allow-unauthenticated \
         --set-env-vars=GITHUB_TOKEN={os.environ.get('GITHUB_TOKEN')} \
         --memory=128MiB \
         --timeout=60s"""
@@ -55,7 +54,7 @@ def get_function_url():
         logger.error(f"Failed to get function URL: {e.stderr}")
         raise
 
-def create_scheduler_job(function_url):
+def create_scheduler_job(function_url, service_account):
     """Create a Cloud Scheduler job to trigger the function."""
     # Create the scheduler job
     scheduler_cmd = f"""gcloud scheduler jobs create http trigger-mtg-chaos-workflow-job \
@@ -63,7 +62,9 @@ def create_scheduler_job(function_url):
         --uri="{function_url}" \
         --http-method=POST \
         --time-zone="UTC" \
-        --attempt-deadline=60s"""
+        --attempt-deadline=60s\
+        --oidc-service-account-email="{service_account}"
+        """
 
     logger.info("Creating Cloud Scheduler job...")
     run_command(scheduler_cmd)
@@ -72,6 +73,7 @@ def main():
     parser = argparse.ArgumentParser(description='Deploy cloud function and/or create scheduler job')
     parser.add_argument('--deploy-function', action='store_true', help='Deploy the cloud function')
     parser.add_argument('--create-scheduler', action='store_true', help='Create the scheduler job')
+    parser.add_argument('--service-account', help='Service account to use for the scheduler job')
     args = parser.parse_args()
 
     try:
@@ -85,7 +87,7 @@ def main():
         
         if args.create_scheduler:
             function_url = get_function_url()
-            create_scheduler_job(function_url)
+            create_scheduler_job(function_url, args.service_account)
         
         logger.info("Operation completed successfully!")
         
